@@ -34,6 +34,11 @@ class IngredientsSection extends StatelessWidget {
                               color: Colors.green[50],
                               shape: BoxShape.circle,
                             ),
+                            child: Icon(
+                              _getIngredientIcon(ingredient),
+                              color: Colors.green[600],
+                              size: 24,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Text(
@@ -57,5 +62,48 @@ class IngredientsSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIngredientIcon(String ingredient) {
+    switch (ingredient.toLowerCase()) {
+      case 'beef':
+        return Icons.restaurant;
+      case 'lettuce':
+        return Icons.eco;
+      case 'tomato':
+        return Icons.circle;
+      case 'cheese':
+        return Icons.cake;
+      case 'mozzarella':
+        return Icons.cake;
+      case 'tomato sauce':
+        return Icons.circle;
+      case 'basil':
+        return Icons.eco;
+      case 'olive oil':
+        return Icons.opacity;
+      case 'chicken':
+        return Icons.restaurant;
+      case 'spices':
+        return Icons.local_fire_department;
+      case 'flour':
+        return Icons.circle;
+      case 'oil':
+        return Icons.opacity;
+      case 'salmon':
+        return Icons.restaurant;
+      case 'herbs':
+        return Icons.eco;
+      case 'lemon':
+        return Icons.circle;
+      case 'pepperoni':
+        return Icons.restaurant;
+      case 'orange':
+        return Icons.circle;
+      case 'ice':
+        return Icons.ac_unit;
+      default:
+        return Icons.restaurant;
+    }
   }
 }

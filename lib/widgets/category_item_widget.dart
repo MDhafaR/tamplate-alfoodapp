@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../models/category.dart';
 
 class CategoryItemWidget extends StatelessWidget {
@@ -29,7 +30,13 @@ class CategoryItemWidget extends StatelessWidget {
                 color: category.isSelected ? Colors.green : Colors.grey[200],
                 shape: BoxShape.circle,
               ),
-              child: SizedBox()
+              child: SvgPicture.asset(
+                _getCategoryIconPath(category.name),
+                colorFilter: ColorFilter.mode(
+                  category.isSelected ? Colors.white : Colors.grey[600]!,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             // Category name

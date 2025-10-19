@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class SizeSelectionSection extends StatelessWidget {
   final Map<String, double> sizeOptions;
   final String selectedSize;
+  final Function(String) onSizeSelected;
 
   const SizeSelectionSection({
     super.key,
     required this.sizeOptions,
     required this.selectedSize,
+    required this.onSizeSelected,
   });
 
   @override
@@ -29,7 +31,7 @@ class SizeSelectionSection extends StatelessWidget {
           sizeOptions.isNotEmpty
               ? Row(
                   children: sizeOptions.entries.map((entry) {
-                    // final isSelected = selectedSize == entry.key;
+                    final isSelected = selectedSize == entry.key;
                     String priceText;
                     if (entry.value == 0) {
                       priceText = '+\$0';
@@ -39,39 +41,47 @@ class SizeSelectionSection extends StatelessWidget {
                     return Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
-                        child: Container(
-                          // TODO: Add GestureDetector for learning interaction
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12,
-                            horizontal: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.grey[300]!,
-                              width: 1,
+                        child: GestureDetector(
+                          onTap: () => onSizeSelected(entry.key),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 8,
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                entry.key,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
+                            decoration: BoxDecoration(
+                              color: isSelected ? Colors.green : Colors.white,
+                              border: Border.all(
+                                color: isSelected
+                                    ? Colors.green
+                                    : Colors.grey[300]!,
+                                width: 1,
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                priceText,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[600],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  entry.key,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 4),
+                                Text(
+                                  priceText,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: isSelected
+                                        ? Colors.white70
+                                        : Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

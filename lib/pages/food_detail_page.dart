@@ -5,8 +5,10 @@ import '../widgets/food_image_section.dart';
 import '../widgets/food_info_section.dart';
 import '../widgets/ingredients_section.dart';
 import '../widgets/size_selection_section.dart';
+import '../widgets/extras_section.dart';
 import '../widgets/special_instructions_section.dart';
 import '../widgets/reviews_section.dart';
+import '../widgets/add_to_cart_section.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final FoodItem foodItem;
@@ -20,6 +22,7 @@ class FoodDetailPage extends StatefulWidget {
 class _FoodDetailPageState extends State<FoodDetailPage> {
   String selectedSize = '';
   bool isFavorite = false;
+  Set<String> selectedExtras = {};
   TextEditingController specialInstructionsController = TextEditingController();
   int quantity = 1;
 
@@ -46,9 +49,17 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
       basePrice += widget.foodItem.sizeOptions[selectedSize] ?? 0.0;
     }
 
-    // TODO: Add extras price calculation for learning checkbox interaction
+    // Add extras price
+    double extrasPrice = 0.0;
+    for (String extraId in selectedExtras) {
+      final extra = widget.foodItem.extras.firstWhere(
+        (e) => e.id == extraId,
+        orElse: () => widget.foodItem.extras.first,
+      );
+      extrasPrice += extra.price;
+    }
 
-    return basePrice * quantity;
+    return (basePrice + extrasPrice) * quantity;
   }
 
   @override
@@ -58,6 +69,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
       body: SafeArea(
         child: Column(
           children: [
+            // Header
             FoodDetailHeader(
               title: 'Food Details',
               isFavorite: isFavorite,
@@ -68,32 +80,84 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                 });
               },
             ),
+            // Content
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    // Food Image
                     FoodImageSection(
                       imageUrl: widget.foodItem.imageUrl,
                       rating: widget.foodItem.rating,
                     ),
+                    // Food Info
                     FoodInfoSection(
                       name: widget.foodItem.name,
                       description: widget.foodItem.description,
                       price: widget.foodItem.price,
                       deliveryTime: widget.foodItem.deliveryTime,
                     ),
+                    // Ingredients
                     IngredientsSection(
                       ingredients: widget.foodItem.ingredients,
                     ),
+                    // Size Selection
                     SizeSelectionSection(
                       sizeOptions: widget.foodItem.sizeOptions,
                       selectedSize: selectedSize,
+                      onSizeSelected: (size) {
+                        setState(() {
+                          selectedSize = size;
+                        });
+                      },
                     ),
-                    // TODO: Add ExtrasSection for learning checkbox interaction
+                    // Extras
+                    ExtrasSection(
+                      extras: widget.foodItem.extras,
+                      selectedExtras: selectedExtras,
+                      onExtraChanged: (extraId, isSelected) {
+                        setState(() {
+                          if (isSelected) {
+                            selectedExtras.add(extraId);
+                          } else {
+                            selectedExtras.remove(extraId);
+                          }
+                        });
+                      },
+                    ),
+                    // Special Instructions
                     SpecialInstructionsSection(
                       controller: specialInstructionsController,
                     ),
+                    // Reviews
                     ReviewsSection(reviews: widget.foodItem.reviews),
+                    // Add to Cart
+                    AddToCartSection(
+                      quantity: quantity,
+                      totalPrice: getTotalPrice(),
+                      onQuantityDecrease: () {
+                        if (quantity > 1) {
+                          setState(() {
+                            quantity--;
+                          });
+                        }
+                      },
+                      onQuantityIncrease: () {
+                        setState(() {
+                          quantity++;
+                        });
+                      },
+                      onAddToCart: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              '${widget.foodItem.name} (${quantity}x) added to cart!',
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
+                    ),
                     const SizedBox(height: 20),
                   ],
                 ),
