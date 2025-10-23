@@ -1,5 +1,9 @@
 import 'package:alfoodapp/widgets/vertical_food_item_widget.dart';
 import 'package:flutter/material.dart';
+// TODO: Import flutter_bloc untuk state management
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// TODO: Import CartCubit untuk mengelola state cart
+// import '../cubit/cart_cubit.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/search_bar_widget.dart';
 import '../widgets/category_item_widget.dart';
@@ -27,12 +31,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    // TODO: Implementasi state management untuk categories dan food items
+    // categories = MockData.getCategories();
+    // foodItems = MockData.getFoodItems();
     categories = MockData.getCategories();
     foodItems = MockData.getFoodItems();
   }
 
   void _selectCategory(String categoryId) {
     setState(() {
+      // TODO: Implementasi state management untuk category selection
       // If clicking the same category, deselect it
       if (selectedCategoryId == categoryId) {
         selectedCategoryId = null;
@@ -51,15 +59,33 @@ class _HomePageState extends State<HomePage> {
 
   void _onViewChanged(bool isGridView) {
     setState(() {
+      // TODO: Implementasi state management untuk view mode
       this.isGridView = isGridView;
     });
   }
 
-  // TODO: TUGAS - Buat fungsi untuk menghitung tinggi GridView
-  // Tips: GridView punya 2 kolom, perlu hitung berapa baris yang dibutuhkan
-  // Tips: Gunakan MediaQuery untuk mendapatkan lebar layar
   double _calculateGridHeight(int itemCount) {
-    return 500.0; // Ganti dengan perhitungan yang tepat
+    const double crossAxisCount = 2;
+    const double childAspectRatio = 0.75;
+    const double mainAxisSpacing = 16;
+
+    // Calculate number of rows needed
+    final double rowCount = (itemCount / crossAxisCount).ceil().toDouble();
+
+    // Calculate height of each item
+    // We need to estimate the width first, then calculate height based on aspect ratio
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double availableWidth =
+        screenWidth - 40; // Subtract horizontal padding
+    final double itemWidth =
+        (availableWidth - 16) / 2; // Subtract spacing between items
+    final double itemHeight = itemWidth / childAspectRatio;
+
+    // Calculate total height
+    final double totalHeight =
+        (rowCount * itemHeight) + ((rowCount - 1) * mainAxisSpacing);
+
+    return totalHeight + 20; // Add bottom spacing
   }
 
   @override
@@ -129,48 +155,25 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    // TODO: TUGAS - Buat conditional rendering: jika isGridView true tampilkan GridView, jika false tampilkan ListView
-                    // Tips: Gunakan GridView.builder dengan 2 kolom dan gunakan widget FoodCardWidget
-
-                    // TODO: Ganti Container info tugas di bawah dengan implementasi GridView.builder
+                    // Conditional rendering based on view mode
                     isGridView
-                        ? Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Colors.orange.shade50,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Colors.orange.shade200,
-                                width: 2,
-                              ),
-                            ),
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.grid_view,
-                                  size: 48,
-                                  color: Colors.orange.shade700,
-                                ),
-                                const SizedBox(height: 12),
-                                Text(
-                                  '⚠️ TUGAS: Membuat Grid View ⚠️',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.orange.shade900,
+                        ? SizedBox(
+                            height: _calculateGridHeight(foodItems.length),
+                            child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 0.75,
+                                    crossAxisSpacing: 16,
+                                    mainAxisSpacing: 16,
                                   ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Implementasikan GridView.builder di sini\nGunakan widget: FoodCardWidget',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.orange.shade800,
-                                  ),
-                                ),
-                              ],
+                              itemCount: foodItems.length,
+                              itemBuilder: (context, index) {
+                                return FoodCardWidget(
+                                  foodItem: foodItems[index],
+                                );
+                              },
                             ),
                           )
                         : ListView.builder(

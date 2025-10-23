@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+// TODO: Import flutter_bloc untuk state management
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_page.dart';
 import 'menu_page.dart';
 import 'cart_page.dart';
 import 'favorites_page.dart';
 import 'profile_page.dart';
+// TODO: Import CartCubit untuk mengelola state cart
+// import '../cubit/cart_cubit.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -14,7 +18,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  int _cartItemCount = 3; // Cart badge count
 
   final List<Widget> _pages = [
     const HomePage(),
@@ -29,6 +32,14 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Theme(
+        // TODO: Implementasi BlocBuilder untuk state management cart
+        // BlocBuilder<CartCubit, CartState>(
+        //   builder: (context, state) {
+        //     int cartItemCount = 0;
+        //     if (state is CartLoaded) {
+        //       cartItemCount = context.read<CartCubit>().itemCount;
+        //     }
+        //     return Theme(
         data: Theme.of(context).copyWith(
           navigationBarTheme: NavigationBarThemeData(
             labelTextStyle: MaterialStateProperty.resolveWith<TextStyle?>((
@@ -67,68 +78,70 @@ class _MainPageState extends State<MainPage> {
                 clipBehavior: Clip.none,
                 children: [
                   Icon(Icons.shopping_cart_outlined),
-                  if (_cartItemCount > 0)
-                    Positioned(
-                      right: -6,
-                      top: -8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 4,
-                          vertical: 2,
-                        ),
-                        decoration: const BoxDecoration(
-                          color: Colors.green,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        ),
-                        child: Text(
-                          '$_cartItemCount',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
+                  // TODO: Implementasi cart item count dari state management
+                  // if (cartItemCount > 0)
+                  //   Positioned(
+                  //     right: -6,
+                  //     top: -8,
+                  //     child: Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         horizontal: 4,
+                  //         vertical: 2,
+                  //       ),
+                  //       decoration: const BoxDecoration(
+                  //         color: Colors.green,
+                  //         shape: BoxShape.circle,
+                  //       ),
+                  //       constraints: const BoxConstraints(
+                  //         minWidth: 18,
+                  //         minHeight: 18,
+                  //       ),
+                  //       child: Text(
+                  //         '$cartItemCount',
+                  //         style: const TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 11,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //         textAlign: TextAlign.center,
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
               selectedIcon: Stack(
                 clipBehavior: Clip.none,
                 children: [
                   Icon(Icons.shopping_cart, color: Colors.green),
-                  if (_cartItemCount > 0)
-                    Positioned(
-                      right: -6,
-                      top: -8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 4,
-                          vertical: 2,
-                        ),
-                        decoration: const BoxDecoration(
-                          color: Colors.green,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        ),
-                        child: Text(
-                          '$_cartItemCount',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
+                  // TODO: Implementasi cart item count dari state management
+                  // if (cartItemCount > 0)
+                  //   Positioned(
+                  //     right: -6,
+                  //     top: -8,
+                  //     child: Container(
+                  //       padding: const EdgeInsets.symmetric(
+                  //         horizontal: 4,
+                  //         vertical: 2,
+                  //       ),
+                  //       decoration: const BoxDecoration(
+                  //         color: Colors.green,
+                  //         shape: BoxShape.circle,
+                  //       ),
+                  //       constraints: const BoxConstraints(
+                  //         minWidth: 18,
+                  //         minHeight: 18,
+                  //       ),
+                  //       child: Text(
+                  //         '$cartItemCount',
+                  //         style: const TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 11,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //         textAlign: TextAlign.center,
+                  //       ),
+                  //     ),
+                  //   ),
                 ],
               ),
               label: 'Cart',
