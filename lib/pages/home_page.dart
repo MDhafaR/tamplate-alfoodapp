@@ -1,9 +1,5 @@
 import 'package:alfoodapp/widgets/vertical_food_item_widget.dart';
 import 'package:flutter/material.dart';
-// TODO: Import flutter_bloc untuk state management
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// TODO: Import CartCubit untuk mengelola state cart
-// import '../cubit/cart_cubit.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/search_bar_widget.dart';
 import '../widgets/category_item_widget.dart';
@@ -31,16 +27,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // TODO: Implementasi state management untuk categories dan food items
-    // categories = MockData.getCategories();
-    // foodItems = MockData.getFoodItems();
     categories = MockData.getCategories();
     foodItems = MockData.getFoodItems();
   }
 
   void _selectCategory(String categoryId) {
     setState(() {
-      // TODO: Implementasi state management untuk category selection
       // If clicking the same category, deselect it
       if (selectedCategoryId == categoryId) {
         selectedCategoryId = null;
@@ -59,7 +51,6 @@ class _HomePageState extends State<HomePage> {
 
   void _onViewChanged(bool isGridView) {
     setState(() {
-      // TODO: Implementasi state management untuk view mode
       this.isGridView = isGridView;
     });
   }

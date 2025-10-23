@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-// TODO: Import flutter_bloc untuk state management
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// TODO: Import CartCubit untuk mengelola state cart
-// import '../cubit/cart_cubit.dart';
 import '../models/cart_item.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -100,14 +96,10 @@ class CartItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         // Minus Button
-                        // TODO: Implementasi state management untuk decrease quantity
                         GestureDetector(
                           onTap: () {
-                            // TODO: Implementasi updateQuantity dengan Cubit
-                            // context.read<CartCubit>().updateQuantity(
-                            //   cartItem.id,
-                            //   cartItem.quantity - 1,
-                            // );
+                            // TODO: Implement state management
+                            print('Decrease quantity for ${cartItem.id}');
                           },
                           child: Container(
                             width: 32,
@@ -138,14 +130,10 @@ class CartItemWidget extends StatelessWidget {
                         const SizedBox(width: 12),
 
                         // Plus Button
-                        // TODO: Implementasi state management untuk increase quantity
                         GestureDetector(
                           onTap: () {
-                            // TODO: Implementasi updateQuantity dengan Cubit
-                            // context.read<CartCubit>().updateQuantity(
-                            //   cartItem.id,
-                            //   cartItem.quantity + 1,
-                            // );
+                            // TODO: Implement state management
+                            print('Increase quantity for ${cartItem.id}');
                           },
                           child: Container(
                             width: 32,
@@ -174,8 +162,8 @@ class CartItemWidget extends StatelessWidget {
           right: 0,
           child: IconButton(
             onPressed: () {
-              // TODO: Implementasi removeFromCart dengan Cubit
-              // context.read<CartCubit>().removeFromCart(cartItem.id);
+              // TODO: Implement state management
+              print('Remove item ${cartItem.id} from cart');
             },
             icon: const Icon(Icons.close, color: Colors.black, size: 20),
           ),

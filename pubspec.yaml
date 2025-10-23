@@ -36,8 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.2.1
   slide_switcher: ^1.1.2
-  # TODO: Tambahkan flutter_bloc untuk state management
-  # flutter_bloc: ^8.1.6
+  # TODO: Add flutter_bloc dependency
 
 dev_dependencies:
   flutter_test:

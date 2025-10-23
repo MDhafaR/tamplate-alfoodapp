@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-// TODO: Import flutter_bloc untuk state management
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// TODO: Import CartCubit untuk mengelola state cart
-// import '../cubit/cart_cubit.dart';
 
 class AddToCartSection extends StatelessWidget {
   final int quantity;
@@ -30,7 +26,6 @@ class AddToCartSection extends StatelessWidget {
           Row(
             children: [
               // Minus Button
-              // TODO: Implementasi state management untuk decrease quantity
               GestureDetector(
                 onTap: onQuantityDecrease,
                 child: Container(
@@ -55,7 +50,6 @@ class AddToCartSection extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               // Plus Button
-              // TODO: Implementasi state management untuk increase quantity
               GestureDetector(
                 onTap: onQuantityIncrease,
                 child: Container(
@@ -72,7 +66,6 @@ class AddToCartSection extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           // Add to Cart Button
-          // TODO: Implementasi state management untuk add to cart
           Expanded(
             child: Container(
               height: 60,
