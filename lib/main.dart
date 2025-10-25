@@ -1,4 +1,6 @@
+import 'package:alfoodapp/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'pages/main_page.dart';
 
 void main() {
@@ -10,14 +12,17 @@ class AlFoodApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'AlFood',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: MaterialApp(
+        title: 'AlFood',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+          useMaterial3: true,
+        ),
+        home: const MainPage(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const MainPage(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

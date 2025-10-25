@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/cart_cubit.dart';
 import '../models/cart_item.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -99,6 +101,7 @@ class CartItemWidget extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             // TODO: Implement state management
+                            context.read<CartCubit>().updateQuantity(cartItem.id, cartItem.quantity - 1);
                             print('Decrease quantity for ${cartItem.id}');
                           },
                           child: Container(
@@ -133,6 +136,7 @@ class CartItemWidget extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             // TODO: Implement state management
+                            context.read<CartCubit>().updateQuantity(cartItem.id, cartItem.quantity + 1);
                             print('Increase quantity for ${cartItem.id}');
                           },
                           child: Container(
@@ -163,6 +167,7 @@ class CartItemWidget extends StatelessWidget {
           child: IconButton(
             onPressed: () {
               // TODO: Implement state management
+              context.read<CartCubit>().removeFromCart(cartItem.id);
               print('Remove item ${cartItem.id} from cart');
             },
             icon: const Icon(Icons.close, color: Colors.black, size: 20),

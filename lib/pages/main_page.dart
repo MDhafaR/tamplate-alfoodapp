@@ -1,4 +1,6 @@
+import 'package:alfoodapp/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_page.dart';
 import 'menu_page.dart';
 import 'cart_page.dart';
@@ -27,10 +29,12 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: Builder(
-        builder: (context) {
-          // TODO: Implement state management for cart count
-          int cartItemCount = 3;
+      bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
+        builder: (context, state) {
+          int cartItemCount = 0;
+          if (state is CartLoaded) {
+            cartItemCount = context.read<CartCubit>().itemCount;
+          }
 
           return Theme(
             data: Theme.of(context).copyWith(

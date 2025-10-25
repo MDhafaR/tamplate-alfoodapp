@@ -1,4 +1,7 @@
+import 'package:alfoodapp/models/cart_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/cart_cubit.dart';
 import '../models/food_item.dart';
 import '../widgets/food_detail_header.dart';
 import '../widgets/food_image_section.dart';
@@ -154,6 +157,13 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               '${widget.foodItem.name} (${quantity}x) added to cart!',
                             ),
                             backgroundColor: Colors.green,
+                          ),
+                        );
+                        context.read<CartCubit>().addToCart(
+                          CartItem(
+                            id: widget.foodItem.id,
+                            foodItem: widget.foodItem,
+                            quantity: quantity,
                           ),
                         );
                       },

@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.2.1
   slide_switcher: ^1.1.2
+  flutter_bloc: ^9.1.1
   # TODO: Add flutter_bloc dependency
 
 dev_dependencies:
